@@ -25,8 +25,10 @@
 </nav>
 
 <div class="container">
-    <div class="align-content-center">
-        <h1>404</h1>
+    <div class="row">
+        <div class="text-center">
+            <h1 style="font-size: 40em">404</h1>
+        </div>
     </div>
 </div>
 

@@ -30,7 +30,7 @@
 
             <div class="form-group row">
                 <form:label path="file" cssClass="col-md-4 col-md-offset-2"
-                            cssErrorClass="col-md-4 text-danger">CSV File</form:label>
+                            cssErrorClass="col-md-4 col-md-offset-2 text-danger">CSV File</form:label>
 
                 <div class="col-md-4">
                     <input type="file" name="file">

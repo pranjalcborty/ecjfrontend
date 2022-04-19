@@ -15,6 +15,7 @@ public class Utility {
 
     public static Map<Integer, String> FUNCTION_CHOICES = new HashMap<>();
     public static Map<Integer, String> GP_PARAM_CHOICES = new HashMap<>();
+    public static Map<Integer, Object> GP_PARAM_DEFAULT_VALUES = new HashMap<>();
 
     static {
         FUNCTION_CHOICES.put(0, "Add (Addition): 2");
@@ -35,6 +36,15 @@ public class Utility {
         GP_PARAM_CHOICES.put(5, "Elitism");
         GP_PARAM_CHOICES.put(6, "Jobs");
         GP_PARAM_CHOICES = Collections.unmodifiableMap(GP_PARAM_CHOICES);
+
+        GP_PARAM_DEFAULT_VALUES.put(0, 512);
+        GP_PARAM_DEFAULT_VALUES.put(1, 0.9);
+        GP_PARAM_DEFAULT_VALUES.put(2, 0.1);
+        GP_PARAM_DEFAULT_VALUES.put(3, 51);
+        GP_PARAM_DEFAULT_VALUES.put(4, 1);
+        GP_PARAM_DEFAULT_VALUES.put(5, 0);
+        GP_PARAM_DEFAULT_VALUES.put(6, 5);
+        GP_PARAM_DEFAULT_VALUES = Collections.unmodifiableMap(GP_PARAM_DEFAULT_VALUES);
     }
 
     public Data constructDataset(MultipartFile file, boolean hasColumnHeaders) throws IOException {

@@ -2,6 +2,7 @@ package net.pranjal.ecjfrontend.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,16 @@ public class Config extends CommonParent implements Serializable {
 
     @Transient
     private String fileName;
+
+    public Config() {
+    }
+
+    public Config(String uuid, String jsonData) {
+        this.uuid = uuid;
+        this.jsonData = jsonData;
+        this.status = Status.PENDING;
+        this.uploadedOn = new Date();
+    }
 
     public int getId() {
         return id;

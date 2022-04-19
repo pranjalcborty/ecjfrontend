@@ -11,7 +11,7 @@ public class Configuration implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<Integer> functionChoices;
-    private Map<Integer, Integer> paramChoices;
+    private Map<Integer, String> paramChoices;
 
     public Configuration() {
         functionChoices = new ArrayList<>();
@@ -26,11 +26,11 @@ public class Configuration implements Serializable {
         this.functionChoices = functionChoices;
     }
 
-    public Map<Integer, Integer> getParamChoices() {
+    public Map<Integer, String> getParamChoices() {
         return paramChoices;
     }
 
-    public void setParamChoices(Map<Integer, Integer> paramChoices) {
+    public void setParamChoices(Map<Integer, String> paramChoices) {
         this.paramChoices = paramChoices;
     }
 }

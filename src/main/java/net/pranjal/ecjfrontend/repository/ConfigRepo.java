@@ -10,8 +10,9 @@ import java.util.List;
 @Repository
 public interface ConfigRepo extends CrudRepository<Config, Long> {
 
-    @Query("  SELECT c.uuid, d.fileName, c.status FROM Config c" +
-            " JOIN Dataset d ON c.uuid = d.uuid" +
+    @Query("  FROM Config c" +
             " ORDER BY c.uploadedOn ASC")
     List<Config> getTaskList();
+
+    Config findConfigByUuid(String uuid);
 }

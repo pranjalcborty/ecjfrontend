@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DatasetRepo extends CrudRepository<Dataset, Long> {
+
+    Dataset findDatasetByUuid(String uuid);
 }

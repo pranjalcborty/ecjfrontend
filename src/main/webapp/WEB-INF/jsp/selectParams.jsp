@@ -26,24 +26,37 @@
 
 <div class="container">
     <div class="jumbotron">
-        <form:form modelAttribute="config" method="post">
+        <form:form modelAttribute="config" method="post" autocomplete="off">
             <div class="row">
                 <div class="col-md-4 col-md-offset-2">
-                    <div class="row">
-                        <form:checkboxes path="functionChoices"
-                                         items="${functionMap}"
-                                         cssStyle="margin-right: 10px"
-                                         element="div class='form-group row'"/>
+                    <form:errors path="functionChoices"
+                                 cssStyle="margin-left: -15px"
+                                 element="div class='alert alert-danger'"/>
+                </div>
+                <div class="col-md-5">
+                    <div class="alert alert-info" style="margin-left: -15px">
+                        <fmt:message key="message.param"/>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                    <form:checkboxes path="functionChoices"
+                                     items="${functionMap}"
+                                     cssStyle="margin-right: 10px"
+                                     element="div class='form-group row'"/>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
                         <c:forEach items="${paramMap}" var="entry">
                             <div class="form-group row">
                                 <form:label path="paramChoices[${entry.key}]" cssClass="col-md-3"
-                                            cssErrorClass="text-danger"><c:out value="${entry.value}"/> </form:label>
+                                            cssErrorClass="col-md-3 text-danger"><c:out value="${entry.value}"/>
+                                </form:label>
                                 <div class="col-md-3">
-                                    <form:input path="paramChoices[${entry.key}]"/>
+                                    <form:input placeholder="Default = ${defaultMap[entry.key]}"
+                                                path="paramChoices[${entry.key}]"/>
+                                    <form:errors path="paramChoices[${entry.key}]" cssClass="text-danger"/>
                                 </div>
                             </div>
                         </c:forEach>

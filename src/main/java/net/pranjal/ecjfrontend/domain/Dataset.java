@@ -2,6 +2,7 @@ package net.pranjal.ecjfrontend.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +25,7 @@ public class Dataset extends CommonParent implements Serializable {
         this.uuid = uuid;
         this.jsonData = jsonData;
         this.status = Status.PENDING;
+        this.uploadedOn = new Date();
     }
 
     public int getId() {

@@ -5,12 +5,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <c:url value="/task" var="baseUrl"/>
+
     <link rel="icon" href="<c:url value='/assets/images/fax-solid.svg'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap-select.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/fontawesome-all.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/jquery.datatables.min.css'/>">
-    <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
     <title>Home</title>
 </head>
 <body>
@@ -29,23 +30,23 @@
         <table id="datatable">
             <thead>
                 <tr>
+                    <th>Created On</th>
                     <th>Task ID</th>
-                    <th>File Name</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach items="${jobs}" var="job">
-                    <tr>
+                    <tr style="cursor: pointer">
+                        <td>${job.uploadedOn}</td>
                         <td>${job.uuid}</td>
-                        <td>${job.fileName}</td>
                         <td>${job.status}</td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
-    <div class="row">
+    <div class="row" style="padding-top: 10px">
         <a class="btn btn-success pull-right" href="<c:url value="/upload"/>">Add Task</a>
     </div>
 </div>
@@ -55,7 +56,12 @@
 <script src="<c:url value='/assets/js/bootstrap-select.min.js'/>"></script>
 <script src="<c:url value='/assets/js/jquery.dataTables.min.js'/>"></script>
 <script>
-    $("#datatable").DataTable();
+    const table = $("#datatable").DataTable();
+
+    $('#datatable tbody').on('click', 'tr', function () {
+        let data = table.row(this).data()[1];
+        window.location.href = '${baseUrl}' + '?uuid=' + data;
+    } );
 </script>
 </body>
 </html>
