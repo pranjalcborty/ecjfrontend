@@ -1,0 +1,22 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'net.pranjal'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+dependencies {
+    compileOnly("org.springframework.boot:spring-boot-starter-web")
+    compileOnly("org.springframework.boot:spring-boot-starter-data-jpa")
+    compileOnly("mysql:mysql-connector-java")
+    compileOnly("javax.servlet:jstl")
+    compileOnly("org.apache.tomcat.embed:tomcat-embed-jasper")
+    compileOnly("org.springframework.boot:spring-boot-devtools")
+}
