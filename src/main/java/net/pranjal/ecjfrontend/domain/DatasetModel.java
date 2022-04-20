@@ -3,7 +3,7 @@ package net.pranjal.ecjfrontend.domain;
 import java.io.Serializable;
 import java.util.List;
 
-public class Data implements Serializable {
+public class DatasetModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

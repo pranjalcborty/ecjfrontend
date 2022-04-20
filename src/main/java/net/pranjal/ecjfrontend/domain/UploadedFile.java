@@ -7,7 +7,7 @@ public class UploadedFile {
     private MultipartFile file;
     private boolean hasColumnHeaders;
 
-    private Data data;
+    private DatasetModel datasetModel;
 
     public MultipartFile getFile() {
         return file;
@@ -25,11 +25,11 @@ public class UploadedFile {
         this.hasColumnHeaders = hasColumnHeaders;
     }
 
-    public Data getData() {
-        return data;
+    public DatasetModel getData() {
+        return datasetModel;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setData(DatasetModel datasetModel) {
+        this.datasetModel = datasetModel;
     }
 }

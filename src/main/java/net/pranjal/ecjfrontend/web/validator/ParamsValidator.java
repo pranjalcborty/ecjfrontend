@@ -1,24 +1,23 @@
 package net.pranjal.ecjfrontend.web.validator;
 
-import net.pranjal.ecjfrontend.domain.Configuration;
+import net.pranjal.ecjfrontend.domain.ConfigModel;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.util.Map;
-import java.util.Objects;
 
 @Component
 public class ParamsValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Configuration.class.isAssignableFrom(clazz);
+        return ConfigModel.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        Configuration config = (Configuration) target;
+        ConfigModel config = (ConfigModel) target;
 
         if (config.getFunctionChoices().isEmpty()) {
             errors.rejectValue("functionChoices", "error.functions.empty");

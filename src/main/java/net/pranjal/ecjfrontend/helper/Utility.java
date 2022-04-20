@@ -1,6 +1,6 @@
 package net.pranjal.ecjfrontend.helper;
 
-import net.pranjal.ecjfrontend.domain.Data;
+import net.pranjal.ecjfrontend.domain.DatasetModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -47,12 +47,12 @@ public class Utility {
         GP_PARAM_DEFAULT_VALUES = Collections.unmodifiableMap(GP_PARAM_DEFAULT_VALUES);
     }
 
-    public Data constructDataset(MultipartFile file, boolean hasColumnHeaders) throws IOException {
+    public DatasetModel constructDataset(MultipartFile file, boolean hasColumnHeaders) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-        Data data = new Data();
+        DatasetModel datasetModel = new DatasetModel();
 
         if (hasColumnHeaders) {
-            data.setColumns(asList(reader.readLine().split(",")));
+            datasetModel.setColumns(asList(reader.readLine().split(",")));
         }
 
         List<List<Double>> x = new ArrayList<>();
@@ -79,7 +79,17 @@ public class Utility {
             }
         }
 
-        if (hasColumnHeaders && data.getColumns().size() != x.get(0).size() + 1) {
+        if (!hasColumnHeaders) {
+            List<String> columnHeaders = new ArrayList<>();
+
+            for (int i = 0; i < x.get(0).size() + 1; i++) {
+                columnHeaders.add("" + i);
+            }
+
+            datasetModel.setColumns(columnHeaders);
+        }
+
+        if (datasetModel.getColumns().size() != x.get(0).size() + 1) {
             throw new IOException("error.file.dataNotFormattedProperly");
         }
 
@@ -87,9 +97,9 @@ public class Utility {
             throw new IOException("error.file.dataNotFormattedProperly");
         }
 
-        data.setX(x);
-        data.setY(y);
+        datasetModel.setX(x);
+        datasetModel.setY(y);
 
-        return data;
+        return datasetModel;
     }
 }

@@ -59,8 +59,8 @@
     const table = $("#datatable").DataTable();
 
     $('#datatable tbody').on('click', 'tr', function () {
-        let data = table.row(this).data()[1];
-        window.location.href = '${baseUrl}' + '?uuid=' + data;
+        let datasetModel = table.row(this).data()[1];
+        window.location.href = '${baseUrl}' + '?uuid=' + datasetModel;
     } );
 </script>
 </body>

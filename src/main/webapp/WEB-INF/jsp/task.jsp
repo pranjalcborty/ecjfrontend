@@ -49,7 +49,7 @@
             <button id="exportImage" class="btn btn-success">Download graph</button>
         </div>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <canvas id="chart1" height="50" width="50"></canvas>
             </div>
         </div>
@@ -64,19 +64,40 @@
 <script>
     $(function () {
         const ctx = $("#chart1");
+        let jData = JSON.parse('${resultJson}');
+
+        const maxIdx = Object.keys(jData["bestIndividualFitnessMap"])
+            .reduce(function (a, b) {
+                return jData["bestIndividualFitnessMap"][a] > jData["bestIndividualFitnessMap"][b] ? a : b
+            });
+
+        const avg = Array(${maxGen});
+        for (let i = 0; i < ${maxGen}; i++) {
+            let sum = 0;
+            let cnt = 0;
+
+            Object.keys(jData["allRunInfoMap"]).forEach((key, index) => {
+                if (jData["allRunInfoMap"][key][i]) {
+                    sum += jData["allRunInfoMap"][key][i];
+                    cnt ++;
+                }
+            });
+
+            avg[i] = sum / cnt;
+        }
 
         const myChart = new Chart(ctx, {
             type: 'line',
             responsive: true,
             data: {
-                labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+                labels: Array.from(Array(${maxGen}).keys()),
                 datasets: [{
-                    data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
+                    data: jData["allRunInfoMap"][maxIdx],
                     label: "Best",
                     borderColor: "#3e95cd",
                     fill: false
                 }, {
-                    data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
+                    data: avg,
                     label: "Average",
                     borderColor: "#8e5ea2",
                     fill: false
@@ -108,9 +129,9 @@
         });
 
         $("#exportImage").click(function () {
-            let data = myChart.toBase64Image();
+            let datasetModel = myChart.toBase64Image();
             let image = new Image();
-            image.src = data;
+            image.src = datasetModel;
 
             let w = window.open("about:blank");
             setTimeout(function () {

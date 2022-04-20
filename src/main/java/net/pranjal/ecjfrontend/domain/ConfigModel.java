@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Configuration implements Serializable {
+public class ConfigModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private List<Integer> functionChoices;
     private Map<Integer, String> paramChoices;
 
-    public Configuration() {
+    public ConfigModel() {
         functionChoices = new ArrayList<>();
         paramChoices = new HashMap<>();
     }
