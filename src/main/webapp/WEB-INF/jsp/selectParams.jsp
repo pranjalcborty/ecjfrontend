@@ -7,10 +7,8 @@
 <head>
     <link rel="icon" href="<c:url value='/assets/images/fax-solid.svg'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>">
-    <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap-select.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/fontawesome-all.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/jquery.datatables.min.css'/>">
-    <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
     <title>GP Configuration</title>
 </head>
 <body>
@@ -100,7 +98,6 @@
 
 <script src="<c:url value='/assets/js/jquery-3.3.1.min.js'/>"></script>
 <script src="<c:url value='/assets/js/bootstrap.min.js'/>"></script>
-<script src="<c:url value='/assets/js/bootstrap-select.min.js'/>"></script>
 <script src="<c:url value='/assets/js/jquery.dataTables.min.js'/>"></script>
 </body>
 </html>

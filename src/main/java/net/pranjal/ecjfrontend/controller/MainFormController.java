@@ -127,7 +127,6 @@ public class MainFormController {
                     .mapToInt(List::size)
                     .max().orElseThrow(NoSuchElementException::new);
 
-
             model.put("result", allRunInfo);
             model.put("resultJson", result.getJsonData());
             model.put("maxGen", maxGen);

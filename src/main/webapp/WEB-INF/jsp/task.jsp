@@ -7,7 +7,6 @@
 <head>
     <link rel="icon" href="<c:url value='/assets/images/fax-solid.svg'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>">
-    <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap-select.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/fontawesome-all.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/jquery.datatables.min.css'/>">
     <title>Task</title>
@@ -32,7 +31,7 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3">Status</label>
-                <c:out value="${conf.status.statusStr}"/>
+                <div style="color: ${conf.status.statusColor}"><c:out value="${conf.status.statusStr}"/></div>
             </div>
             <div class="form-group row">
                 <label class="col-md-3">Problem</label>
@@ -50,12 +49,16 @@
     </div>
     <c:if test="${not empty result}">
         <div class="jumbotron">
-            <div class="form-group row text-center">
-                <button id="exportImage" class="btn btn-success">Download graph</button>
-            </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <canvas id="chart1" height="50" width="50"></canvas>
+                    <div id="codeBlock" class="form-group row text-center">
+                        <h4>Best Individual Among All the Runs</h4>
+                        <code>Code</code>
+                    </div>
+                    <div class="form-group row text-center">
+                        <button id="exportImage" class="btn btn-success">Download graph</button>
+                    </div>
+                    <canvas id="chart" height="50" width="50"></canvas>
                 </div>
             </div>
         </div>
@@ -64,20 +67,24 @@
 
 <script src="<c:url value='/assets/js/jquery-3.3.1.min.js'/>"></script>
 <script src="<c:url value='/assets/js/bootstrap.min.js'/>"></script>
-<script src="<c:url value='/assets/js/bootstrap-select.min.js'/>"></script>
 <script src="<c:url value='/assets/js/jquery.dataTables.min.js'/>"></script>
 <script src="<c:url value='/assets/js/chart.min.js'/>"></script>
 <script>
     <c:if test="${not empty result}">
     $(function () {
-        const ctx = $("#chart1");
+        const ctx = $("#chart");
         let jData = JSON.parse('${resultJson}');
-        console.log(jData["bestIndividualFitnessMap"]);
 
         const maxIdx = Object.keys(jData["bestIndividualFitnessMap"])
             .reduce(function (a, b) {
                 return jData["bestIndividualFitnessMap"][a] > jData["bestIndividualFitnessMap"][b] ? a : b
             });
+
+        if (jData["bestTreeMap"]) {
+            $("#codeBlock").find("code").text(jData["bestTreeMap"][maxIdx]);
+        } else {
+            $("#codeBlock").hide();
+        }
 
         const avg = Array(${maxGen});
         for (let i = 0; i < ${maxGen}; i++) {

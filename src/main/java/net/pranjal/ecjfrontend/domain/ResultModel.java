@@ -11,6 +11,7 @@ public class ResultModel implements Serializable {
     private Map<String, List<Double>> allRunInfoMap;
     private Map<String, Double> bestIndividualFitnessMap;
     private Map<String, String> bestIndividualMap;
+    private Map<String, String> bestTreeMap;
 
     public Map<String, List<Double>> getAllRunInfoMap() {
         return allRunInfoMap;
@@ -34,5 +35,13 @@ public class ResultModel implements Serializable {
 
     public void setBestIndividualMap(Map<String, String> bestIndividualMap) {
         this.bestIndividualMap = bestIndividualMap;
+    }
+
+    public Map<String, String> getBestTreeMap() {
+        return bestTreeMap;
+    }
+
+    public void setBestTreeMap(Map<String, String> bestTreeMap) {
+        this.bestTreeMap = bestTreeMap;
     }
 }
