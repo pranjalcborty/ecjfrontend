@@ -14,11 +14,11 @@
     <title>Home</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-static-top bg-success">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<c:url value="/"/>">
-                <i class="fas fa-fax"></i>&nbsp;EasyGP
+            <a class="navbar-brand" style="color: black" href="<c:url value="/"/>">
+                <i class="fas fa-fax" style="color: #e03131;"></i>&nbsp;&nbsp;easyGP
             </a>
         </div>
     </div>

@@ -15,11 +15,11 @@
     <title>Home</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-static-top bg-success">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<c:url value="/"/>">
-                <i class="fas fa-fax"></i>&nbsp;EasyGP
+            <a class="navbar-brand" style="color: black" href="<c:url value="/"/>">
+                <i class="fas fa-fax" style="color: #e03131;"></i>&nbsp;&nbsp;easyGP
             </a>
         </div>
     </div>
@@ -40,7 +40,7 @@
                     <tr style="cursor: pointer">
                         <td>${job.uploadedOn}</td>
                         <td>${job.uuid}</td>
-                        <td>${job.status}</td>
+                        <td style="color: ${job.status.statusColor}">${job.status.statusStr}</td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -56,7 +56,9 @@
 <script src="<c:url value='/assets/js/bootstrap-select.min.js'/>"></script>
 <script src="<c:url value='/assets/js/jquery.dataTables.min.js'/>"></script>
 <script>
-    const table = $("#datatable").DataTable();
+    const table = $("#datatable").DataTable({
+        order: [[ 0, "desc" ]]
+    });
 
     $('#datatable tbody').on('click', 'tr', function () {
         let datasetModel = table.row(this).data()[1];

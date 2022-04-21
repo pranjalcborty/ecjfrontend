@@ -13,11 +13,11 @@
     <title>Task</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-static-top bg-success">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<c:url value="/"/>">
-                <i class="fas fa-fax"></i>&nbsp;EasyGP
+            <a class="navbar-brand" style="color: black" href="<c:url value="/"/>">
+                <i class="fas fa-fax" style="color: #e03131;"></i>&nbsp;&nbsp;easyGP
             </a>
         </div>
     </div>
@@ -32,7 +32,11 @@
             </div>
             <div class="form-group row">
                 <label class="col-md-3">Status</label>
-                <c:out value="${conf.status}"/>
+                <c:out value="${conf.status.statusStr}"/>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3">Problem</label>
+                <c:out value="${confModel.problem.titleStr}"/>
             </div>
             <div class="form-group row">
                 <label class="col-md-3">Dataset file name</label>
@@ -44,16 +48,18 @@
             </div>
         </div>
     </div>
-    <div class="jumbotron">
-        <div class="form-group row text-center">
-            <button id="exportImage" class="btn btn-success">Download graph</button>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <canvas id="chart1" height="50" width="50"></canvas>
+    <c:if test="${not empty result}">
+        <div class="jumbotron">
+            <div class="form-group row text-center">
+                <button id="exportImage" class="btn btn-success">Download graph</button>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <canvas id="chart1" height="50" width="50"></canvas>
+                </div>
             </div>
         </div>
-    </div>
+    </c:if>
 </div>
 
 <script src="<c:url value='/assets/js/jquery-3.3.1.min.js'/>"></script>
@@ -62,9 +68,11 @@
 <script src="<c:url value='/assets/js/jquery.dataTables.min.js'/>"></script>
 <script src="<c:url value='/assets/js/chart.min.js'/>"></script>
 <script>
+    <c:if test="${not empty result}">
     $(function () {
         const ctx = $("#chart1");
         let jData = JSON.parse('${resultJson}');
+        console.log(jData["bestIndividualFitnessMap"]);
 
         const maxIdx = Object.keys(jData["bestIndividualFitnessMap"])
             .reduce(function (a, b) {
@@ -79,7 +87,7 @@
             Object.keys(jData["allRunInfoMap"]).forEach((key, index) => {
                 if (jData["allRunInfoMap"][key][i]) {
                     sum += jData["allRunInfoMap"][key][i];
-                    cnt ++;
+                    cnt++;
                 }
             });
 
@@ -101,7 +109,8 @@
                     label: "Average",
                     borderColor: "#8e5ea2",
                     fill: false
-                }]
+                }
+                ]
             },
             options: {
                 responsive: true,
@@ -139,6 +148,7 @@
             }, 0);
         });
     });
+    </c:if>
 </script>
 </body>
 </html>

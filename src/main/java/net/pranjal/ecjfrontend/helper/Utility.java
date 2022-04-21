@@ -1,6 +1,7 @@
 package net.pranjal.ecjfrontend.helper;
 
 import net.pranjal.ecjfrontend.domain.DatasetModel;
+import net.pranjal.ecjfrontend.domain.Problem;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -9,6 +10,9 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableMap;
+import static net.pranjal.ecjfrontend.domain.Problem.BINARY_CLASSIFICATION;
+import static net.pranjal.ecjfrontend.domain.Problem.SYM_REGRESSION;
 import static org.springframework.util.StringUtils.isEmpty;
 
 public class Utility {
@@ -16,6 +20,7 @@ public class Utility {
     public static Map<Integer, String> FUNCTION_CHOICES = new HashMap<>();
     public static Map<Integer, String> GP_PARAM_CHOICES = new HashMap<>();
     public static Map<Integer, Object> GP_PARAM_DEFAULT_VALUES = new HashMap<>();
+    public static Map<Problem, String> PROBLEM_CHOICES = new HashMap<>();
 
     static {
         FUNCTION_CHOICES.put(0, "Add (Addition): 2");
@@ -45,6 +50,10 @@ public class Utility {
         GP_PARAM_DEFAULT_VALUES.put(5, 0);
         GP_PARAM_DEFAULT_VALUES.put(6, 5);
         GP_PARAM_DEFAULT_VALUES = Collections.unmodifiableMap(GP_PARAM_DEFAULT_VALUES);
+
+        PROBLEM_CHOICES.put(SYM_REGRESSION, SYM_REGRESSION.getTitleStr());
+        PROBLEM_CHOICES.put(BINARY_CLASSIFICATION, BINARY_CLASSIFICATION.getTitleStr());
+        PROBLEM_CHOICES = unmodifiableMap(PROBLEM_CHOICES);
     }
 
     public DatasetModel constructDataset(MultipartFile file, boolean hasColumnHeaders) throws IOException {
@@ -56,7 +65,7 @@ public class Utility {
         }
 
         List<List<Double>> x = new ArrayList<>();
-        List<Double> y = new ArrayList<>();
+        List<String> y = new ArrayList<>();
 
         for (String s = reader.readLine(); !isEmpty(s); s = reader.readLine()) {
             String[] tokens = s.split(",");
@@ -72,11 +81,7 @@ public class Utility {
 
             x.add(row);
 
-            try {
-                y.add(Double.valueOf(tokens[tokens.length - 1]));
-            } catch (Exception e) {
-                throw new IOException("error.file.dataNotFormattedProperly");
-            }
+            y.add(tokens[tokens.length - 1]);
         }
 
         if (!hasColumnHeaders) {

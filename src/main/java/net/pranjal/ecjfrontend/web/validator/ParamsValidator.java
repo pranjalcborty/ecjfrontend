@@ -7,6 +7,8 @@ import org.springframework.validation.Validator;
 
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 @Component
 public class ParamsValidator implements Validator {
 
@@ -23,7 +25,11 @@ public class ParamsValidator implements Validator {
             errors.rejectValue("functionChoices", "error.functions.empty");
         }
 
-        for (Map.Entry<Integer, String> entry: config.getParamChoices().entrySet()) {
+        if (isNull(config.getProblem())) {
+            errors.rejectValue("problem", "error.functions.empty");
+        }
+
+        for (Map.Entry<Integer, String> entry : config.getParamChoices().entrySet()) {
             if (entry.getValue().isEmpty()) {
                 continue;
             }

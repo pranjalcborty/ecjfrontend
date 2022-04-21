@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 import static java.util.UUID.randomUUID;
 
@@ -53,7 +54,7 @@ public class MainFormController {
 
     @GetMapping("/")
     public String home(ModelMap model) {
-        model.put("jobs", configRepo.getTaskList());
+        model.put("jobs", configRepo.findAll());
 
         return "home";
     }
@@ -110,23 +111,31 @@ public class MainFormController {
 
     @GetMapping("/task")
     public String task(@RequestParam String uuid, ModelMap model) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+
         Config config = configRepo.findConfigByUuid(uuid);
+        ConfigModel configModel = mapper.readValue(config.getJsonData(), ConfigModel.class);
+
         Dataset dataset = dsRepo.findDatasetByUuid(uuid);
         Result result = resultRepo.findResultByUuid(uuid);
 
-        ObjectMapper mapper = new ObjectMapper();
-        ResultModel allRunInfo = mapper.readValue(result.getJsonData(), ResultModel.class);
+        if (Objects.nonNull(result)) {
+            ResultModel allRunInfo = mapper.readValue(result.getJsonData(), ResultModel.class);
 
-        int maxGen = allRunInfo.getAllRunInfoMap()
-                .values().stream()
-                .mapToInt(List::size)
-                .max().orElseThrow(NoSuchElementException::new);
+            int maxGen = allRunInfo.getAllRunInfoMap()
+                    .values().stream()
+                    .mapToInt(List::size)
+                    .max().orElseThrow(NoSuchElementException::new);
+
+
+            model.put("result", allRunInfo);
+            model.put("resultJson", result.getJsonData());
+            model.put("maxGen", maxGen);
+        }
 
         model.put("conf", config);
+        model.put("confModel", configModel);
         model.put("dataset", dataset);
-        model.put("result", allRunInfo);
-        model.put("resultJson", result.getJsonData());
-        model.put("maxGen", maxGen);
 
         return "task";
     }
@@ -139,6 +148,7 @@ public class MainFormController {
     private void setParamsReferenceData(ModelMap model, ConfigModel configModel) {
         model.put("functionMap", Utility.FUNCTION_CHOICES);
         model.put("paramMap", Utility.GP_PARAM_CHOICES);
+        model.put("problemMap", Utility.PROBLEM_CHOICES);
         model.put("defaultMap", Utility.GP_PARAM_DEFAULT_VALUES);
         model.put("config", configModel);
     }

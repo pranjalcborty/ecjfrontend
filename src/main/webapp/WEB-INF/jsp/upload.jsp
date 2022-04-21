@@ -13,11 +13,11 @@
     <title>Upload</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-static-top bg-success">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<c:url value="/"/>">
-                <i class="fas fa-fax"></i>&nbsp;EasyGP
+            <a class="navbar-brand" style="color: black" href="<c:url value="/"/>">
+                <i class="fas fa-fax" style="color: #e03131;"></i>&nbsp;&nbsp;easyGP
             </a>
         </div>
     </div>
@@ -29,7 +29,7 @@
             <form:errors element="div class='alert alert-danger'"/>
 
             <div class="form-group row">
-                <form:label path="file" cssClass="col-md-4 col-md-offset-2"
+                <form:label path="file" cssClass="col-md-3 col-md-offset-2"
                             cssErrorClass="col-md-4 col-md-offset-2 text-danger">CSV File</form:label>
 
                 <div class="col-md-4">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group row">
-                <form:label path="hasColumnHeaders" cssClass="col-md-4 col-md-offset-2"
+                <form:label path="hasColumnHeaders" cssClass="col-md-3 col-md-offset-2"
                             cssErrorClass="text-danger">Dataset contains column headers</form:label>
                 <div class="col-md-4">
                     <form:checkbox path="hasColumnHeaders"/>

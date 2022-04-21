@@ -14,11 +14,11 @@
     <title>GP Configuration</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-static-top bg-success">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<c:url value="/"/>">
-                <i class="fas fa-fax"></i>&nbsp;EasyGP
+            <a class="navbar-brand" style="color: black" href="<c:url value="/"/>">
+                <i class="fas fa-fax" style="color: #e03131;"></i>&nbsp;&nbsp;easyGP
             </a>
         </div>
     </div>
@@ -29,37 +29,64 @@
         <form:form modelAttribute="config" method="post" autocomplete="off">
             <div class="row">
                 <div class="col-md-4 col-md-offset-2">
-                    <form:errors path="functionChoices"
-                                 cssStyle="margin-left: -15px"
-                                 element="div class='alert alert-danger'"/>
-                </div>
-                <div class="col-md-5">
-                    <div class="alert alert-info" style="margin-left: -15px">
-                        <fmt:message key="message.param"/>
+                    <div class="row">
+                        <h4><fmt:message key="message.functions"/></h4>
+                        <div class="col-md-12">
+                            <form:errors path="functionChoices"
+                                         cssStyle="margin-left: -15px;"
+                                         element="div class='alert alert-danger'"/>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-2">
-                    <form:checkboxes path="functionChoices"
-                                     items="${functionMap}"
-                                     cssStyle="margin-right: 10px"
-                                     element="div class='form-group row'"/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form:checkboxes path="functionChoices"
+                                             items="${functionMap}"
+                                             cssStyle="margin-right: 10px"
+                                             element="div class='form-group row'"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;">
+                        <h4><fmt:message key="message.problem"/></h4>
+                        <div class="col-md-12">
+                            <form:errors path="problem"
+                                         cssStyle="margin-left: -15px;"
+                                         element="div class='alert alert-danger'"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form:radiobuttons path="problem"
+                                               items="${problemMap}"
+                                               cssStyle="margin-right: 10px"
+                                               element="div class='form-group row'"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <c:forEach items="${paramMap}" var="entry">
-                            <div class="form-group row">
-                                <form:label path="paramChoices[${entry.key}]" cssClass="col-md-3"
-                                            cssErrorClass="col-md-3 text-danger"><c:out value="${entry.value}"/>
-                                </form:label>
-                                <div class="col-md-3">
-                                    <form:input placeholder="Default = ${defaultMap[entry.key]}"
-                                                path="paramChoices[${entry.key}]"/>
-                                    <form:errors path="paramChoices[${entry.key}]" cssClass="text-danger"/>
-                                </div>
+                        <div class="col-md-12">
+                            <div class="alert alert-info">
+                                <fmt:message key="message.param"/>
                             </div>
-                        </c:forEach>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <c:forEach items="${paramMap}" var="entry">
+                                <div class="form-group row">
+                                    <form:label path="paramChoices[${entry.key}]" cssClass="col-md-3"
+                                                cssErrorClass="col-md-3 text-danger"><c:out value="${entry.value}"/>
+                                    </form:label>
+                                    <div class="col-md-3">
+                                        <form:input placeholder="Default = ${defaultMap[entry.key]}"
+                                                    path="paramChoices[${entry.key}]"/>
+                                        <form:errors path="paramChoices[${entry.key}]" cssClass="text-danger"/>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </div>
